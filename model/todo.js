@@ -1,5 +1,3 @@
-/* eslint-disable eol-last */
-/* eslint-disable linebreak-style */
 const pool = require('./database');
 
 const create = async (description) => {

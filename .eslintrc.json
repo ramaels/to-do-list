@@ -11,5 +11,7 @@
         "ecmaVersion": "latest"
     },
     "rules": {
+      "eol-last":"off",
+      "linebreak-style":"off"
     }
 }
