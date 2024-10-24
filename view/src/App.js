@@ -9,11 +9,45 @@ const App = () => {
   const [todoList, setTodoList] = useState();
   const [error, setError] = useState();
 
-// Create a fetchTodos() function to update the View from Model using getTodos() function from Controller
+  // Create a fetchTodos() function to update the View from Model using getTodos() function from Controller
+  const fetchTodos = async () => {
+    setError();
+    try {
+      const res = await getTodos();
+      setTodoList(data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+  // Create a handleDelete() function to remove to-do list with matching id
+  const handleDelete = async (id) => {
+    setError();
+    try {
+      await removeTodo(id);
+      fetchTodos();
+    } catch (err) {
+      setError(err);
+    }
+  };
 
-// Create a handleDelete() function to remove to-do list with matching id
-
-// Create a handleSubmit() function to add new to-do list
+  // Create a handleSubmit() function to add new to-do list
+  const handleSubmit = async (e) => {
+    e.prevenDefault();
+    setError();
+    const data = new FormData(e.currentTarget);
+    try {
+      data.set('description', todo.description);
+      data.set('created_at', `${new Date().toISOString()}`);
+      const newTodo = await createTodo(data);
+      if (newTodo.error) {
+        setError(newTodo.error);
+      }
+      setTodo({ description: '' });
+      fetchTodos();
+    } catch (err) {
+      setError(err);
+    }
+  };
 
   useEffect(() => {
     // Initialize todoList
